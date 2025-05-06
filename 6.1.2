@@ -1,0 +1,66 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct DoublyLinkedList
+{
+int data;
+struct DoublyLinkedList *head;
+struct DoublyLinkedList *tail;
+};
+struct DoublyLinkedList* createNode()
+{
+	struct DoublyLinkedList *temp=(struct DoublyLinkedList*)malloc(sizeof(struct DoublyLinkedList));
+	temp->head=NULL;
+	temp->tail=NULL;
+	return temp;
+}
+void append(struct DoublyLinkedList *first,int x)
+{
+	struct DoublyLinkedList *temp, *lastNode=first;
+	temp=createNode();
+	temp->data=x;
+	if(first==NULL)
+first=temp;
+	else
+	{
+		while(lastNode->head!=NULL)
+			lastNode=lastNode->head;
+		lastNode->head=temp;
+		temp->tail=lastNode;
+	}
+}
+void displayList(struct DoublyLinkedList *first)
+{
+	if(first==NULL)
+	{
+		printf("List is empty\n");
+		return;
+	}
+	while(first!=NULL)
+{
+		if(first->data==0)
+			first=first->head;
+		printf("%d <-> ",first->data);
+		first=first->head;
+	}
+	printf("NULL\n");
+}
+void concatenate(struct DoublyLinkedList *list1,struct DoublyLinkedList *list2)
+{
+	if(list1==NULL)
+	{
+		list1=list2;
+		return;
+	}
+	if(list2==NULL)
+		return;
+		struct DoublyLinkedList *temp=list1;
+	while(temp->head!=NULL)
+		temp=temp->head;
+	temp->head=list2;
+	list2->tail=temp;
+}
+
+int main() {
+    struct DoublyLinkedList* list1 = (struct DoublyLinkedList*)malloc(sizeof(struct DoublyLinkedList));
